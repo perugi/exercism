@@ -1,2 +1,2 @@
 # exercism
-Solutions to exercism challenges
+Solutions to exercism challenges.
