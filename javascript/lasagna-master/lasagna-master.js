@@ -51,3 +51,17 @@ export function quantities(layers) {
 
   return amounts;
 }
+
+export function addSecretIngredient(friendsList, myList) {
+  myList.push(friendsList[friendsList.length - 1]);
+}
+
+export function scaleRecipe(recipe, portions) {
+  let scaledRecipe = {};
+
+  for (const ingredient in recipe) {
+    scaledRecipe[ingredient] = (recipe[ingredient] / 2) * portions;
+  }
+
+  return scaledRecipe;
+}
