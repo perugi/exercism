@@ -48,11 +48,8 @@ export function scale2d(sx, sy) {
  */
 export function composeTransform(f, g) {
   return function (x, y) {
-    let coordinates = [x, y];
-    coordinates = f(coordinates);
-    coordinates = g(coordinates);
-
-    return coordinates;
+    [x, y] = f(x, y);
+    return g(x, y);
   };
 }
 
@@ -66,5 +63,17 @@ export function composeTransform(f, g) {
  *  if the arguments are the same on subsequent calls, or compute a new result if they are different.
  */
 export function memoizeTransform(f) {
-  throw new Error("Implement the memoizeTransform function");
+  let stored_result = null;
+  let stored_arguments = [null, null];
+
+  return function (x, y) {
+    if (x === stored_arguments[0] && y === stored_arguments[1]) {
+      return stored_result;
+    } else {
+      stored_arguments = [x, y];
+      stored_result = f(x, y);
+
+      return stored_result;
+    }
+  };
 }
