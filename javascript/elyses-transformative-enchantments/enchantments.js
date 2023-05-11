@@ -19,17 +19,7 @@ export function seeingDouble(deck) {
  * @returns {number[]} deck with triplicate 3s
  */
 export function threeOfEachThree(deck) {
-  let newDeck = [];
-
-  deck.forEach((card) => {
-    if (card === 3) {
-      newDeck = newDeck.concat([3, 3, 3]);
-    } else {
-      newDeck.push(card);
-    }
-  });
-
-  return newDeck;
+  return deck.flatMap((card) => (card === 3 ? [3, 3, 3] : card));
 }
 
 /**
