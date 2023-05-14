@@ -34,31 +34,21 @@ export class ProgramWindow {
   }
 
   resize(newSize) {
-    newSize.width = Math.max(1, newSize.width);
-    newSize.height = Math.max(1, newSize.height);
+    const maxWidth = this.screenSize.width - this.position.x;
+    const maxHeight = this.screenSize.height - this.position.y;
 
-    if (this.position.x + newSize.width > this.screenSize.width) {
-      newSize.width = this.screenSize.width - this.position.x;
-    }
-
-    if (this.position.y + newSize.height > this.screenSize.height) {
-      newSize.height = this.screenSize.height - this.position.y;
-    }
+    newSize.width = Math.min(Math.max(1, newSize.width), maxWidth);
+    newSize.height = Math.min(Math.max(1, newSize.height), maxHeight);
 
     this.size = newSize;
   }
 
   move(newPosition) {
-    newPosition.x = Math.max(0, newPosition.x);
-    newPosition.y = Math.max(0, newPosition.y);
+    const maxX = this.screenSize.width - this.size.width;
+    const maxY = this.screenSize.height - this.size.height;
 
-    if (this.size.width + newPosition.x > this.screenSize.width) {
-      newPosition.x = this.screenSize.width - this.size.width;
-    }
-
-    if (this.size.height + newPosition.y > this.screenSize.height) {
-      newPosition.y = this.screenSize.height - this.size.height;
-    }
+    newPosition.x = Math.min(Math.max(0, newPosition.x), maxX);
+    newPosition.y = Math.min(Math.max(0, newPosition.y), maxY);
 
     this.position = newPosition;
   }
