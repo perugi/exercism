@@ -21,7 +21,7 @@ export function removeDuplicates(playlist) {
 }
 
 /**
- * Checks whether a playlist includes a track.
+ * Checks whether a playlist incluaes a track.
  *
  * @param {string[]} playlist
  * @param {string} track
