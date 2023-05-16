@@ -4,13 +4,7 @@
 //
 
 export const toRna = (dna) => {
-  let rna = "";
-
-  for (let i = 0; i < dna.length; i++) {
-    rna += RNA_TO_DNA[dna[i]];
-  }
-
-  return rna;
+  return dna.replace(/[CGAT]/g, (char) => RNA_TO_DNA[char]);
 };
 
 const RNA_TO_DNA = {
