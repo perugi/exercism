@@ -4,9 +4,7 @@
 //
 
 export const isPangram = (sentence) => {
-  let englishCharacters = "abcdefghijklmnopqrstuvwxyz".split("");
-
-  return englishCharacters.every((character) =>
+  return [..."abcdefghijklmnopqrstuvwxyz"].every((character) =>
     sentence.toLowerCase().includes(character)
   );
 };
