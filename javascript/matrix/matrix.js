@@ -8,7 +8,7 @@ export class Matrix {
     this.inputMatrix = inputMatrix;
     this._rows = this.inputMatrix
       .split("\n")
-      .map((row) => row.split(" ").map((character) => Number(character)));
+      .map((row) => row.split(" ").map(Number));
     this._columns = this._transposeArray(this._rows);
   }
 
