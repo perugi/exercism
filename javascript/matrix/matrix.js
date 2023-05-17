@@ -21,7 +21,7 @@ export class Matrix {
   _parseRows(inputMatrix) {
     return inputMatrix.split("\n").map((row) => row.split(" ").map(Number));
   }
-  k;
+
   _transposeArray(array) {
     return array[0].map((_, colIndex) => array.map((row) => row[colIndex]));
   }
