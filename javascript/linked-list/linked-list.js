@@ -9,40 +9,42 @@ export class LinkedList {
     this.tail = null;
     this.length = 0;
     this.stations = {};
+    this.uid = 0;
   }
 
-  _add(id, prev, next) {
+  _add(name, prev, next) {
     const prevId = prev ? prev.id : null;
     const nextId = next ? next.id : null;
 
     const newStation = {
-      id: id,
+      name: name,
+      id: this.uid,
       prev: prevId,
       next: nextId,
     };
 
     if (this.length === 0) {
-      this.stations[id] = newStation;
       this.head = newStation;
       this.tail = newStation;
     } else {
       if (prev !== null) {
-        this.stations[prev.id].next = id;
+        this.stations[prev.id].next = newStation.id;
       } else {
         // a null on the prev signifies a new head
         this.head = newStation;
       }
 
       if (next !== null) {
-        this.stations[next.id].prev = id;
+        this.stations[next.id].prev = newStation.id;
       } else {
         // a null on the next signifies a new tail
         this.tail = newStation;
       }
     }
 
-    this.stations[id] = newStation;
+    this.stations[newStation.id] = newStation;
     this.length++;
+    this.uid++;
   }
 
   _remove(id) {
@@ -82,10 +84,10 @@ export class LinkedList {
   }
 
   pop() {
-    const oldLastStation = this.tail.id;
-    this._remove(oldLastStation);
+    const oldLastStation = this.tail;
+    this._remove(oldLastStation.id);
 
-    return oldLastStation;
+    return oldLastStation.name;
   }
 
   unshift(station) {
@@ -93,25 +95,33 @@ export class LinkedList {
   }
 
   shift() {
-    const oldFirstStation = this.head.id;
-    this._remove(oldFirstStation);
+    const oldFirstStation = this.head;
+    this._remove(oldFirstStation.id);
 
-    return oldFirstStation;
+    return oldFirstStation.name;
   }
 
-  delete(station) {
-    this._remove(station);
+  delete(name) {
+    // Find the first occurence of the station with the specified name and gets its id.
+    let id;
+
+    for (
+      let station = this.head;
+      station !== undefined;
+      station = this.stations[station.next]
+    ) {
+      if (station.name === name) {
+        id = station.id;
+        break;
+      }
+    }
+
+    if (id !== undefined) {
+      this._remove(id);
+    }
   }
 
   count() {
     return this.length;
   }
 }
-
-// const list = new LinkedList();
-// list.push(7);
-// list.push(13);
-// list.push(11);
-// console.log(list.pop());
-// console.log(list.pop());
-// console.log(list.pop());
