@@ -8,10 +8,9 @@ export const answer = (input) => {
   let validRegex =
     /^What is (?:-?\d+)(?: (plus|minus|multiplied by|divided by) (?:-?\d+))*\?$/;
   if (validRegex.exec(input) === null) {
-    let knownOperations =
+    let allowedWords =
       /^(What|is|-?\d+|plus|minus|multiplied|divided|by)(\s+(What|is|-?\d+|plus|minus|multiplied|divided|by))*\?$/;
-    if (knownOperations.exec(input) === null)
-      throw new Error("Unknown operation");
+    if (allowedWords.exec(input) === null) throw new Error("Unknown operation");
 
     throw new Error("Syntax error");
   }
