@@ -6,9 +6,13 @@ export const answer = (input) => {
   if (!input.startsWith("What is")) throw new Error("Unknown operation");
 
   let validRegex =
-    // /^What is (?:-?\d+)(?: (plus|minus|multiplied by|divided by) (?:-?\d+))*\?$/;
     /^What is (?:-?\d+)(?: (plus|minus|multiplied by|divided by) (?:-?\d+))*\?$/;
   if (validRegex.exec(input) === null) {
+    let knownOperations =
+      /^(What|is|-?\d+|plus|minus|multiplied|divided|by)(\s+(What|is|-?\d+|plus|minus|multiplied|divided|by))*\?$/;
+    if (knownOperations.exec(input) === null)
+      throw new Error("Unknown operation");
+
     throw new Error("Syntax error");
   }
 
