@@ -6,7 +6,6 @@
 export const commands = (code) => {
   let actions = [];
   let binaryDigits = code.toString(2).padStart(5, "0").split("");
-  console.log(binaryDigits);
 
   for (let i = binaryDigits.length - 1; i >= 0; i--) {
     if (binaryDigits[i] === "1") {
