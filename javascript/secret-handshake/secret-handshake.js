@@ -4,17 +4,17 @@
 //
 
 export const commands = (code) => {
+  let possibleActions = ["jump", "close your eyes", "double blink", "wink"];
   let actions = [];
   let binaryDigits = code.toString(2).padStart(5, "0").split("");
 
-  for (let i = binaryDigits.length - 1; i >= 0; i--) {
+  for (let i = 1; i < binaryDigits.length; i++) {
     if (binaryDigits[i] === "1") {
-      if (i === 4) actions.push("wink");
-      else if (i === 3) actions.push("double blink");
-      else if (i === 2) actions.push("close your eyes");
-      else if (i === 1) actions.push("jump");
-      else if (i === 0) actions = actions.reverse();
+      actions.unshift(possibleActions[i - 1]);
     }
+  }
+  if (binaryDigits[0] === "1") {
+    actions = actions.reverse();
   }
 
   return actions;
