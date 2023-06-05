@@ -5,13 +5,10 @@
 
 export class Clock {
   constructor(hours = 0, minutes = 0) {
-    console.log(`Input: ${hours}, ${minutes}`);
     this.hours = (hours + Math.floor(minutes / 60)) % 24;
     this.minutes = minutes % 60;
-    console.log(`Intermediate: ${this.hours}, ${this.minutes}`);
 
     this._rolloverClock();
-    console.log(`Output: ${this.hours}, ${this.minutes}`);
   }
 
   toString() {
@@ -28,16 +25,17 @@ export class Clock {
   }
 
   minus(minutes) {
-    this.hours = (this.hours - Math.floor(this.minutes - minutes / 60)) % 24;
-    this.minutes = (this.minutes - minutes) % 60;
+    this.hours = (this.hours + Math.floor((this.minutes - minutes) / 60)) % 24;
+    this.minutes = this.minutes - (minutes % 60);
+    console.log(`${this.minutes - minutes}`);
 
     this._rolloverClock();
 
     return new Clock(this.hours, this.minutes);
   }
 
-  equals() {
-    throw new Error("Remove this statement and implement this function");
+  equals(clock) {
+    return this.hours === clock.hours && this.minutes === clock.minutes;
   }
 
   _rolloverClock() {
@@ -47,7 +45,7 @@ export class Clock {
 
     if (this.minutes < 0) {
       this.minutes += 60;
-      this.hours -= 1;
+      // this.hours -= 1;
     }
   }
 }
