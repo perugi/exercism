@@ -59,6 +59,30 @@ export const meetup = (year, month, descriptor, day) => {
     resultDate.setTime(
       firstMatchingDay.getTime() + daysToAdd * 24 * 60 * 60 * 1000
     );
+  } else if (descriptor === "last") {
+    const lastDayOfMonth = new Date(year, month, 0).getDay();
+
+    let daysToSubtract = lastDayOfMonth - dayIndex;
+    if (daysToSubtract < 0) {
+      daysToSubtract += 7;
+    }
+
+    resultDate.setTime(
+      new Date(year, month, 0).getTime() - daysToSubtract * 24 * 60 * 60 * 1000
+    );
+  } else if (descriptor === "teenth") {
+    const thirteenthDayOfMonth = new Date(year, month - 1, 13).getDay();
+
+    let daysToAdd = dayIndex - thirteenthDayOfMonth;
+    if (daysToAdd < 0) {
+      daysToAdd += 7;
+    }
+
+    resultDate.setTime(
+      new Date(year, month - 1, 13).getTime() + daysToAdd * 24 * 60 * 60 * 1000
+    );
+  } else {
+    throw new Error("Invalid descriptor");
   }
 
   return resultDate;
